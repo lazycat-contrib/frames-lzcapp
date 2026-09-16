@@ -10,8 +10,8 @@ application:
       backend: http://frames:3000/
 services:
   frames:
-    # upstream: elevenam/frames:2025-04-01-12-49
-    image: elevenam/frames:2025-04-01-12-49
+    # upstream: elevenam/frames:2025-04-01-12-49@sha256:d2dde37bc48594d7d5b627899c2ca626f529d1c8b6fe26a7e3240765b016fbdc
+    image: registry.lazycat.cloud/czyt/elevenam/frames:49096a55ecfa4dca
     environment:
       - DATABASE_URL=postgres://frames:{{ stable_secret "db_password" }}@postgres:5432/frames
       - DIRECT_DATABASE_URL=postgres://frames:{{ stable_secret "db_password" }}@postgres:5432/frames
@@ -27,7 +27,7 @@ services:
       - /lzcapp/var/media:/media
   postgres:
     # upstream: pgvector/pgvector:0.8.6-pg14
-    image: pgvector/pgvector:0.8.6-pg14
+    image: registry.lazycat.cloud/czyt/pgvector/pgvector:fd69e5f3504b9387
     environment:
       - POSTGRES_USER=frames
       - POSTGRES_PASSWORD={{ stable_secret "db_password" }}
@@ -41,6 +41,6 @@ services:
       start_period: 60s
   redis:
     # upstream: library/redis:7.4-alpine
-    image: library/redis:7.4-alpine
+    image: registry.lazycat.cloud/czyt/library/redis:feb21bfd39585516
     binds:
       - /lzcapp/var/data:/data
