@@ -1,0 +1,14 @@
+package: cloud.lazycat.app.frames
+version: 0.0.1
+name: Frames
+description: "您的现代流媒体服务平台"
+min_os_version: "1.5.0"
+homepage: https://github.com/Eleven-am/frames
+author: Eleven-am
+locales:
+  zh:
+    name: Frames
+    description: "您的现代流媒体服务平台"
+  en:
+    name: Frames
+    description: "Your modern streaming media platform"

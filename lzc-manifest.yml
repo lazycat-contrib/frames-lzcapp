@@ -1,0 +1,46 @@
+lzc-sdk-version: "0.1"
+application:
+  subdomain: frames
+  background_task: true
+  multi_instance: false
+  public_path:
+    - /
+  upstreams:
+    - location: /
+      backend: http://frames:3000/
+services:
+  frames:
+    # upstream: elevenam/frames:2025-04-01-12-49
+    image: elevenam/frames:2025-04-01-12-49
+    environment:
+      - DATABASE_URL=postgres://frames:{{ stable_secret "db_password" }}@postgres:5432/frames
+      - DIRECT_DATABASE_URL=postgres://frames:{{ stable_secret "db_password" }}@postgres:5432/frames
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_TTL=86400
+      - REDIS_DB=0
+      - JWT_SECRET={{ stable_secret "jwt_secret" }}
+    depends_on:
+      - postgres
+      - redis
+    binds:
+      - /lzcapp/var/media:/media
+  postgres:
+    # upstream: pgvector/pgvector:0.8.6-pg14
+    image: pgvector/pgvector:0.8.6-pg14
+    environment:
+      - POSTGRES_USER=frames
+      - POSTGRES_PASSWORD={{ stable_secret "db_password" }}
+      - POSTGRES_DB=frames
+    binds:
+      - /lzcapp/var/data:/var/lib/postgresql/data
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready -U frames
+      start_period: 60s
+  redis:
+    # upstream: library/redis:7.4-alpine
+    image: library/redis:7.4-alpine
+    binds:
+      - /lzcapp/var/data:/data
