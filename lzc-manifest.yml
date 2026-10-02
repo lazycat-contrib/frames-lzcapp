@@ -26,8 +26,8 @@ services:
     binds:
       - /lzcapp/var/media:/media
   postgres:
-    # upstream: pgvector/pgvector:0.8.6-pg14
-    image: registry.lazycat.cloud/czyt/pgvector/pgvector:fd69e5f3504b9387
+    # upstream: pgvector/pgvector:0.8.7-pg14
+    image: registry.lazycat.cloud/czyt/pgvector/pgvector:ac103b985bcb3acb
     environment:
       - POSTGRES_USER=frames
       - POSTGRES_PASSWORD={{ stable_secret "db_password" }}
