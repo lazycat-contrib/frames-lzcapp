@@ -1,4 +1,5 @@
 package: cloud.lazycat.app.frames
+license: GPL-3.0
 version: 0.0.1
 name: Frames
 description: "您的现代流媒体服务平台"
